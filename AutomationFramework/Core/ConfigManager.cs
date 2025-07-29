@@ -6,6 +6,8 @@ namespace AutomationFramework.Core
     {
         public string browser {  get; set; }
         public string loglevel { get; set; }
+        public string baseUrlSaucedemo { get; set; }
+
 
     }
     public static class ConfigManager

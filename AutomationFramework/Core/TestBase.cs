@@ -35,6 +35,7 @@ namespace AutomationFramework.Core
         {
             driver = DriverFactory.GetDriver();
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            log.Information($"*******************************************************");
             log.Information($"Test Started: {TestContext.CurrentContext.Test.Name}");
         
         }
@@ -48,13 +49,16 @@ namespace AutomationFramework.Core
             if (status == TestStatus.Failed)
             {
                 test.Fail(errorMessage);
+                test.Fail(errorMessage);
                 log.Error($"Test Failed: {errorMessage}");
             }
             else
             {
                 test.Pass("Test Passed");
+                log.Error($"Test Passed");
             }
             DriverFactory.QuitDriver();
+            log.Information($"*******************************************************");
 
             if (driver != null)
             {
