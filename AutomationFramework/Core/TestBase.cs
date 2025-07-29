@@ -54,13 +54,13 @@ namespace AutomationFramework.Core
 
             if (status == TestStatus.Failed)
             {
-                test.Fail(errorMessage);
-                log.Error($"Test Failed: {errorMessage}");
+                test.Fail($"{errorMessage} ❌");
+                log.Error($"Test Failed ❌: {errorMessage}");
             }
             else
             {
-                test.Pass("Test Passed");
-                log.Information($"Test Passed");
+                test.Pass("Test Passed ✅");
+                log.Information($"Test Passed ✅");
             }
             DriverFactory.QuitDriver();
             log.Information($"************************************************************************************");
