@@ -32,7 +32,6 @@
     <Folder Include="logs\" />
     <Folder Include="Reports\" />
     <Folder Include="Tests\" />
-    <Folder Include="Pages\" />
   </ItemGroup>
 
 </Project>
