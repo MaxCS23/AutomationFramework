@@ -55,7 +55,6 @@ namespace AutomationFramework.Core
             if (status == TestStatus.Failed)
             {
                 test.Fail(errorMessage);
-                test.Fail(errorMessage);
                 log.Error($"Test Failed: {errorMessage}");
             }
             else

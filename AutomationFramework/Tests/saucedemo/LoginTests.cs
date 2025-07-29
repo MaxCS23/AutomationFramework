@@ -8,6 +8,7 @@ namespace AutomationFramework.Tests.saucedemo
     public class LoginTests : TestBase
     {
         [TestCase("standard_user", "secret_sauce")]
+        [TestCase("visual_user", "secret_sauce")]
         public void Login_WithValidCredentials_ShouldSucceed(string username, string password) 
         {
             var loginPage = new LoginPage(driver);

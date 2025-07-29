@@ -1,5 +1,5 @@
 ﻿{
-  "browser": "edge",
+  "browser": "chrome",
   "logLevel": "Information",
   "baseUrlSaucedemo": "https://www.saucedemo.com/"
 }
