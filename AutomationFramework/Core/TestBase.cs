@@ -23,7 +23,13 @@ namespace AutomationFramework.Core
             log.Information("Logger initialized");
 
             var timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-            var htmlReporter = new ExtentSparkReporter($"Reports/TestReport_{timestamp}.html");
+
+            var reportsDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Reports");
+            Directory.CreateDirectory(reportsDir);
+            var reportPath = Path.Combine(reportsDir, $"TestReport_{timestamp}.html");
+
+            var htmlReporter = new ExtentSparkReporter(reportPath);
+
 
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
@@ -35,7 +41,7 @@ namespace AutomationFramework.Core
         {
             driver = DriverFactory.GetDriver();
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-            log.Information($"*******************************************************");
+            log.Information($"************************************************************************************");
             log.Information($"Test Started: {TestContext.CurrentContext.Test.Name}");
         
         }
@@ -55,10 +61,10 @@ namespace AutomationFramework.Core
             else
             {
                 test.Pass("Test Passed");
-                log.Error($"Test Passed");
+                log.Information($"Test Passed");
             }
             DriverFactory.QuitDriver();
-            log.Information($"*******************************************************");
+            log.Information($"************************************************************************************");
 
             if (driver != null)
             {
@@ -72,6 +78,7 @@ namespace AutomationFramework.Core
         [OneTimeTearDown]
         public void GlobalTearDown()
         {
+            log.Information("ExtentReports flushed.");
             extent.Flush();
         }
 

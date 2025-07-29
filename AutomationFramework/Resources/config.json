@@ -1,5 +1,5 @@
 ﻿{
-  "browser": "firefox",
-  "logLevel": "debug",
+  "browser": "edge",
+  "logLevel": "Information",
   "baseUrlSaucedemo": "https://www.saucedemo.com/"
 }
