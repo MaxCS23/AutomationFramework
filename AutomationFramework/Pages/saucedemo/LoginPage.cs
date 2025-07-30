@@ -13,6 +13,7 @@ namespace AutomationFramework.Pages.saucedemo
         private readonly By usernameField = By.Id("user-name");
         private readonly By passwordField = By.Id("password");
         private readonly By loginButton = By.Id("login-button");
+        private readonly By accessError = By.XPath("//h3[contains(@data-test, \"error\")]");
 
         public LoginPage(IWebDriver driver) : base(driver) {}
 
@@ -32,6 +33,11 @@ namespace AutomationFramework.Pages.saucedemo
             SendKeys(usernameField, username);
             SendKeys(passwordField, password);
             Click(loginButton);            
+        }
+
+        public string GetErrorText() 
+        {
+            return GetText(accessError);        
         }
 
         public bool IsLoaded() 

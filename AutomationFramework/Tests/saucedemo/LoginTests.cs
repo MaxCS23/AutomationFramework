@@ -12,12 +12,17 @@ namespace AutomationFramework.Tests.saucedemo
         {
             var loginPage = new LoginPage(driver);
             loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
+
             InventoryPage inventoryPage = loginPage.LoginAsValidUser(username, password);
 
             var url = inventoryPage.GetUrl();
 
-            StringAssert.Contains("/inventory.html", url);
-            Assert.IsTrue(inventoryPage.IsLoaded());
+            Assert.Multiple(() => 
+            {
+                StringAssert.Contains("/inventory.html", url);
+                Assert.IsTrue(inventoryPage.IsLoaded());            
+            });
         }
 
         [Test]
@@ -25,16 +30,22 @@ namespace AutomationFramework.Tests.saucedemo
         {
             string username = EnvConfig.LockedUser;
             string password = EnvConfig.LockedUserPassword;
+            string expectedError = "Epic sadface: Sorry, this user has been locked out.";
+            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
 
             var loginPage = new LoginPage(driver);
             loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
 
             loginPage.LoginAsInvalidUser(username, password);
 
-            var url = loginPage.GetUrl();
+            Uri actualUri = new Uri(loginPage.GetUrl());
 
-            StringAssert.AreEqualIgnoringCase(ConfigManager.Settings.baseUrlSaucedemo, url);
-            Assert.IsTrue(loginPage.IsLoaded());
+            Assert.Multiple(() => 
+            {
+                Assert.That(actualUri, Is.EqualTo(expectedUri));
+                StringAssert.AreEqualIgnoringCase(expectedError, loginPage.GetErrorText());            
+            });
         }
 
         private static IEnumerable<TestCaseData> GetValidLoginData() 
