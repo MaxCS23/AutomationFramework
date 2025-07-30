@@ -48,6 +48,68 @@ namespace AutomationFramework.Tests.saucedemo
             });
         }
 
+        [Test]
+        public void Login_WithInvalidUser_ShouldDenyAccess()
+        {
+            string username = GenerateRandomUsername();
+            string password = GenerateRandomPassword();
+            string expectedError = "Epic sadface: Username and password do not match any user in this service";
+            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
+
+            var loginPage = new LoginPage(driver);
+            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
+
+            loginPage.LoginAsInvalidUser(username, password);
+
+            Uri actualUri = new Uri(loginPage.GetUrl());
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualUri, Is.EqualTo(expectedUri));
+                StringAssert.AreEqualIgnoringCase(expectedError, loginPage.GetErrorText());
+            });
+        }
+
+        [Test]
+        public void Login_WithInvalidPassword_ShouldDenyAccess()
+        {
+            string username = EnvConfig.GetValue("SAUCEDEMO_STANDARD_USER");
+            string password = GenerateRandomPassword();
+            string expectedError = "Epic sadface: Username and password do not match any user in this service";
+            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
+
+            var loginPage = new LoginPage(driver);
+            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
+
+            loginPage.LoginAsInvalidUser(username, password);
+
+            Uri actualUri = new Uri(loginPage.GetUrl());
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(actualUri, Is.EqualTo(expectedUri));
+                StringAssert.AreEqualIgnoringCase(expectedError, loginPage.GetErrorText());
+            });
+        }
+
+        private static string GenerateRandomUsername(int length = 8)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray()) + "_user";
+        }
+
+        public static string GenerateRandomPassword(int length = 12)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
         private static IEnumerable<TestCaseData> GetValidLoginData() 
         {
             yield return new TestCaseData(EnvConfig.GetValue("SAUCEDEMO_STANDARD_USER"), EnvConfig.GetValue("SAUCEDEMO_STANDARD_PASS"));
