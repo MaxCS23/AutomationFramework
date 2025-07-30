@@ -16,11 +16,27 @@ namespace AutomationFramework.Pages.saucedemo
 
         public LoginPage(IWebDriver driver) : base(driver) {}
 
-        public void Login(string username, string password) 
+        public InventoryPage LoginAsValidUser(string username, string password) 
         {
+            log.Debug($"Try to login using username: {username} and password: {password}");
             SendKeys(usernameField, username);
             SendKeys(passwordField, password);
-            Click(loginButton);        
+            Click(loginButton);
+
+            return new InventoryPage(Driver);
+        }
+
+        public void LoginAsInvalidUser(string username, string password)
+        {
+            log.Debug($"Try to login using username: {username} and password: {password}");
+            SendKeys(usernameField, username);
+            SendKeys(passwordField, password);
+            Click(loginButton);            
+        }
+
+        public bool IsLoaded() 
+        {
+            return IsPageLoaded(loginButton);
         }
     }
 }

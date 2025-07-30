@@ -9,5 +9,8 @@ namespace AutomationFramework.Core
         {
             return Environment.GetEnvironmentVariable(key) ?? throw new Exception($"Missing env var: {key}");
         }
+
+        public static string LockedUser => GetValue("SAUCEDEMO_LOCKED_USER");
+        public static string LockedUserPassword => GetValue("SAUCEDEMO_LOCKED_PASS");
     }
 }

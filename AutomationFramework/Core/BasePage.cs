@@ -37,14 +37,14 @@ namespace AutomationFramework.Core
 
         protected void Click(By locator) 
         {
-            var element = WaitForElement(locator);
+            var element = WaitForVisibleAndEnabledElement(locator);
             log.Debug($"Click on: {locator}");
             element.Click();
         }
 
         protected void SendKeys(By locator, string text)
         {
-            var element = WaitForElement(locator);
+            var element = WaitForVisibleAndEnabledElement(locator);
             element.Clear();
             log.Debug($"SendKeys on: {locator}");
             element.SendKeys(text);
@@ -53,25 +53,56 @@ namespace AutomationFramework.Core
         protected string GetText(By locator)
         {
             log.Debug($"Getting text from: {locator}");
-            var element = WaitForElement(locator);
+            var element = WaitForVisibleAndEnabledElement(locator);
             return element.Text;
         }
 
-        private IWebElement WaitForElement(By locator)
+        public string GetUrl() 
         {
-            IWebElement element = Wait.Until(Driver =>
+            if (Driver == null) 
             {
-                try
+                log.Error("Driver is null, cannot get the URL");
+                throw new InvalidOperationException("Driver is null.");
+            
+            }
+            try
+            {
+                return Driver.Url;
+            }
+            catch (WebDriverException ex)
+            {
+                log.Error($"Error getting URL: {ex.Message}");
+                throw;
+            }
+        }
+
+        protected bool IsPageLoaded(By locator) 
+        {
+           return WaitForVisibleAndEnabledElement(locator) != null;
+        }
+
+        private IWebElement WaitForVisibleAndEnabledElement(By locator)
+        {
+            try
+            {
+                return Wait.Until(Driver =>
                 {
-                    element = Driver.FindElement(locator);
-                    return (element.Displayed && element.Enabled) ? element : null;
-                }
-                catch (NoSuchElementException) 
-                {
-                    return null;
-                }
-            });
-            return element;
+                    try
+                    {
+                        var element = Driver.FindElement(locator);
+                        return (element.Displayed && element.Enabled) ? element : null;
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        return null;
+                    }
+                });
+            }
+            catch (WebDriverTimeoutException)
+            {
+                log.Warning($"Element not found or not interactable within timeout: {locator}");
+                return null;
+            }
         }
     }
 }
