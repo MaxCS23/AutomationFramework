@@ -1,6 +1,6 @@
 # 🧪 Web UI Automation Framework (C# + Selenium)
 
-> 🚧 **This framework is currently under development.** New tests and features are being added progressively, including architecture improvements and CI integration.
+> 🚧 **This framework is currently under development.** New tests and features are being added progressively, including architecture improvements.
 
 This is a UI automation testing framework built using **C#**, **Selenium WebDriver**, and **NUnit**. It follows the **Page Object Model (POM)** design pattern to ensure clean, scalable, 
 and maintainable test code. The current test target is [saucedemo.com](https://www.saucedemo.com).
@@ -16,7 +16,7 @@ and maintainable test code. The current test target is [saucedemo.com](https://w
 - 📝 **Logging with Serilog**
 - 📊 **HTML reporting with ExtentReports**
 - 🔁 Ready for data-driven tests (CSV/JSON)
-- 🔧 Designed for future CI/CD and scaling
+- 🔧CI/CD GitHub Actions
 
 ---
 
@@ -71,8 +71,8 @@ and maintainable test code. The current test target is [saucedemo.com](https://w
 * [x] Login tests (valid, locked, invalid credentials)
 * [x] Serilog integration for logging
 * [x] ExtentReports setup
+* [x] Add GitHub Actions for CI
 * [ ] Product/cart tests
-* [ ] Add GitHub Actions for CI
 * [ ] Add support for parallel execution
 
 ## 📜 License
