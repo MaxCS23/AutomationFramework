@@ -46,6 +46,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include=".github\workflows\run-test.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update=".env">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
