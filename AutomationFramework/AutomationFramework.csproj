@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove=".github\**" />
+    <EmbeddedResource Remove=".github\**" />
+    <None Remove=".github\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\config.json" />
   </ItemGroup>
 
@@ -43,10 +49,6 @@
   <ItemGroup>
     <Folder Include="logs\" />
     <Folder Include="Reports\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include=".github\workflows\run-test.yml" />
   </ItemGroup>
 
   <ItemGroup>

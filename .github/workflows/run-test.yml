@@ -10,6 +10,13 @@ on:
 jobs:
     build-and-test:
         runs-on: windows-latest
+        env:
+              SAUCEDEMO_STANDARD_USER: ${{ secrets.SAUCEDEMO_STANDARD_USER }}
+              SAUCEDEMO_STANDARD_PASS: ${{ secrets.SAUCEDEMO_STANDARD_PASS }}
+              SAUCEDEMO_VISUAL_USER: ${{ secrets.SAUCEDEMO_VISUAL_USER }}
+              SAUCEDEMO_VISUAL_PASS: ${{ secrets.SAUCEDEMO_VISUAL_PASS }}
+              SAUCEDEMO_LOCKED_USER: ${{ secrets.SAUCEDEMO_LOCKED_USER }}
+              SAUCEDEMO_LOCKED_PASS: ${{ secrets.SAUCEDEMO_LOCKED_PASS }}
 
         steps:
             - name: Checkout Repository
