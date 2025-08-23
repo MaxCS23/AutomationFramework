@@ -11,12 +11,12 @@ jobs:
     build-and-test:
         runs-on: windows-latest
         env:
-              SAUCEDEMO_STANDARD_USER: ${{ secrets.SAUCEDEMO_STANDARD_USER }}
-              SAUCEDEMO_STANDARD_PASS: ${{ secrets.SAUCEDEMO_STANDARD_PASS }}
-              SAUCEDEMO_VISUAL_USER: ${{ secrets.SAUCEDEMO_VISUAL_USER }}
-              SAUCEDEMO_VISUAL_PASS: ${{ secrets.SAUCEDEMO_VISUAL_PASS }}
-              SAUCEDEMO_LOCKED_USER: ${{ secrets.SAUCEDEMO_LOCKED_USER }}
-              SAUCEDEMO_LOCKED_PASS: ${{ secrets.SAUCEDEMO_LOCKED_PASS }}
+          SAUCEDEMO_STANDARD_USER: ${{ secrets.SAUCEDEMO_STANDARD_USER }}
+          SAUCEDEMO_STANDARD_PASS: ${{ secrets.SAUCEDEMO_STANDARD_PASS }}
+          SAUCEDEMO_VISUAL_USER: ${{ secrets.SAUCEDEMO_VISUAL_USER }}
+          SAUCEDEMO_VISUAL_PASS: ${{ secrets.SAUCEDEMO_VISUAL_PASS }}
+          SAUCEDEMO_LOCKED_USER: ${{ secrets.SAUCEDEMO_LOCKED_USER }}
+          SAUCEDEMO_LOCKED_PASS: ${{ secrets.SAUCEDEMO_LOCKED_PASS }}
 
         steps:
             - name: Checkout Repository
@@ -37,7 +37,14 @@ jobs:
               run: dotnet test --no-build
 
             - name: List logs
-              run: dir /s /b **\logs\*.log
+              shell: pwsh
+              run: |
+                Get-ChildItem -Path . -Recurse -Filter *.log | ForEach-Object { $_.FullName }
+
+            - name: List reports
+              shell: pwsh
+              run: |
+                Get-ChildItem -Path . -Recurse -Filter *.html | ForEach-Object { $_.FullName }
 
             - name: Upload logs
               uses: actions/upload-artifact@v4
