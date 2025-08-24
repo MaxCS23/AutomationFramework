@@ -100,8 +100,9 @@ namespace AutomationFramework.Core
             }
             catch (WebDriverTimeoutException)
             {
-                log.Warning($"Element not found or not interactable within timeout: {locator}");
-                return null;
+                var errorMessage = $"Element not found or not interactable within timeout: {locator}";
+                log.Warning(errorMessage);
+                throw new NoSuchElementException(errorMessage);
             }
         }
     }

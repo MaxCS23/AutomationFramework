@@ -10,8 +10,8 @@ namespace AutomationFramework.Tests.saucedemo
         [TestCaseSource(nameof(GetValidLoginData))]
         public void Login_WithValidCredentials_ShouldSucceed(string username, string password) 
         {
-            var loginPage = new LoginPage(driver);
-            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            var loginPage = new LoginPage(driver!);
+            loginPage.GoToUrl(ConfigManager.Settings.BaseUrlSaucedemo);
             Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
 
             InventoryPage inventoryPage = loginPage.LoginAsValidUser(username, password);
@@ -31,10 +31,10 @@ namespace AutomationFramework.Tests.saucedemo
             string username = EnvConfig.LockedUser;
             string password = EnvConfig.LockedUserPassword;
             string expectedError = "Epic sadface: Sorry, this user has been locked out.";
-            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
+            Uri expectedUri = new Uri(ConfigManager.Settings.BaseUrlSaucedemo);
 
-            var loginPage = new LoginPage(driver);
-            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            var loginPage = new LoginPage(driver!);
+            loginPage.GoToUrl(ConfigManager.Settings.BaseUrlSaucedemo);
             Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
 
             loginPage.LoginAsInvalidUser(username, password);
@@ -54,10 +54,10 @@ namespace AutomationFramework.Tests.saucedemo
             string username = GenerateRandomUsername();
             string password = GenerateRandomPassword();
             string expectedError = "Epic sadface: Username and password do not match any user in this service";
-            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
+            Uri expectedUri = new Uri(ConfigManager.Settings.BaseUrlSaucedemo);
 
-            var loginPage = new LoginPage(driver);
-            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            var loginPage = new LoginPage(driver!);
+            loginPage.GoToUrl(ConfigManager.Settings.BaseUrlSaucedemo);
             Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
 
             loginPage.LoginAsInvalidUser(username, password);
@@ -77,10 +77,10 @@ namespace AutomationFramework.Tests.saucedemo
             string username = EnvConfig.GetValue("SAUCEDEMO_STANDARD_USER");
             string password = GenerateRandomPassword();
             string expectedError = "Epic sadface: Username and password do not match any user in this service";
-            Uri expectedUri = new Uri(ConfigManager.Settings.baseUrlSaucedemo);
+            Uri expectedUri = new Uri(ConfigManager.Settings.BaseUrlSaucedemo);
 
-            var loginPage = new LoginPage(driver);
-            loginPage.GoToUrl(ConfigManager.Settings.baseUrlSaucedemo);
+            var loginPage = new LoginPage(driver!);
+            loginPage.GoToUrl(ConfigManager.Settings.BaseUrlSaucedemo);
             Assert.IsTrue(loginPage.IsLoaded(), "Login Page did not load correctly");
 
             loginPage.LoginAsInvalidUser(username, password);

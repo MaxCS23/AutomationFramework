@@ -1,5 +1,6 @@
 ﻿{
   "browser": "chrome",
-  "logLevel": "debug",
-  "baseUrlSaucedemo": "https://www.saucedemo.com/"
+  "logLevel": "information",
+  "baseUrlSaucedemo": "https://www.saucedemo.com/",
+  "headless": true
 }

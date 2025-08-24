@@ -10,7 +10,7 @@ namespace AutomationFramework.Core
     
     public class TestBase
     {
-        protected IWebDriver driver;
+        protected IWebDriver? driver;
         protected static ExtentReports extent;
         protected ExtentTest test;
         protected ILogger log;

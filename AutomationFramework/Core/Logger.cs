@@ -9,7 +9,7 @@ namespace AutomationFramework.Core
     {
         public static void Init() 
         {
-            var level = ConfigManager.Settings.loglevel.ToLower();
+            var level = ConfigManager.Settings.Loglevel.ToLower();
 
             LogEventLevel logLevel = level switch
             {
